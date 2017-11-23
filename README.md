@@ -84,4 +84,4 @@ console.error(e)
 
 [MIT](http://opensource.org/licenses/MIT)
 
-[calculation.js@1.0.0](https://github.com/noteScript/js-transmission.git)
+[transmission.js@1.0.0](https://github.com/noteScript/js-transmission.git)
