@@ -60,18 +60,30 @@ transmission({
 })
 // cancel example
 
-const api = transmission('https://baidu.com');
+const api = transmission
+    .bind({//config this
+        baseURL: 'https://baidu.com',
+        header: {
+            message: "hello world!"
+        },
+        error(error) {
+            console.error(error)
+        },
+        encode(r) {//转码
+            //so do...
+            return r
+        },
+        decode(r) {//解码
+            //so do...
+            return r
+        },
+    });
 
-api.cancel()
 // other parameter
 
-transmission.prototype.baseURL = 'https://baidu.com';
-//transmission.prototype.encode = str => window.btoa(window.encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));//--only POST
-//transmission.prototype.decode = str => window.decodeURIComponent(window.atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));//--only POST
+const api = transmission('/news');// option.url === 'https://baidu.com/news' //true
 
-const test = transmission('/news');// option.url === 'https://baidu.com/news' //true
-
-test.then(r => {
+api.then(r => {
     console.log(r)
 })
 

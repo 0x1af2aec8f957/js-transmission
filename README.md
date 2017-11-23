@@ -70,7 +70,8 @@ console.error(e)
 
 transmission({
 url: 'https://baidu.com',
-type: "POST"
+type: "POST",
+data:{message:"hello world!"}
 }).then(r => {
 console.dir(r)
 }).catch(e => {
