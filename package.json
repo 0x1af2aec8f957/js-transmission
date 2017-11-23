@@ -1,0 +1,30 @@
+{
+  "name": "js-transmission",
+  "version": "1.0.0",
+  "description": "Be based on Asynchronous Javascript And XML",
+  "main": "index.js",
+  "scripts": {
+    "example": "node example/run/example.js"
+  },
+  "keywords": [
+    "js接口请求",
+    "javascript请求",
+    "http",
+    "Fetch",
+    "ajax",
+    "js-ajax",
+    "Asynchronous Javascript And XML",
+    "js-api",
+    "promise-ajax"
+  ],
+  "author": "603803799@qq.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noteScript/js-transmission/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noteScript/js-transmission"
+  },
+  "homepage": "https://github.com/noteScript/js-transmission/#readme"
+}
