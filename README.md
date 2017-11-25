@@ -25,7 +25,7 @@ url: "https://baidu.com",
 type: "POST",
 async: false,
 header: {
-token: 'js-transmission'
+User-Agent: 'js-transmission'
 },
 data() {
 return {
