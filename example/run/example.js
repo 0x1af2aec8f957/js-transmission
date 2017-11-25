@@ -58,7 +58,6 @@ transmission({
 }).catch(e => {
     console.error(e)
 })
-// cancel example
 
 const api = transmission
     .bind({//config this
