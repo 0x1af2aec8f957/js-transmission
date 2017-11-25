@@ -7,7 +7,7 @@ transmission({
     type: "POST",
     async: false,
     header: {
-        token: 'js-transmission'
+        'User-Agent': 'js-transmission'
     },
     data() {
         return {
@@ -34,7 +34,7 @@ transmission({
         console.dir(response),
             console.dir(headers)
     },
-    error(error, error) {
+    error(error, statusData) {
         console.warn(error);
         console.dir(statusData)
     }
