@@ -52,7 +52,7 @@ success(response, headers) {
 console.dir(response),
 console.dir(headers)
 },
-error(error, error) {
+error(error, statusData) {
 console.warn(error);
 console.dir(statusData)
 }
