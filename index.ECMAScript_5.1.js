@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 exports = module.exports = function (option) {
@@ -12,7 +8,7 @@ exports = module.exports = function (option) {
     return new Promise(function (resolve, reject) {
         var xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP'),
             state_Change = function state_Change() {
-            //ajax ×´Ì¬Âë·¢Éú¸Ä±ä
+            //ajax çŠ¶æ€ç å‘ç”Ÿæ”¹å˜
             var readyState = xmlHttp.readyState,
                 status = xmlHttp.status,
                 statusText = xmlHttp.statusText,
@@ -26,14 +22,14 @@ exports = module.exports = function (option) {
                 success = _ref2.success,
                 _ref2$error = _ref2.error,
                 error = _ref2$error === undefined ? _this.error : _ref2$error;
-            /*Ô¤ÁôÍâ²¿Ä£ÄâdocumentËÄ¸ö×´Ì¬---document.readyState,xmlHttp.readyState...*/
+            /*é¢„ç•™å¤–éƒ¨æ¨¡æ‹Ÿdocumentå››ä¸ªçŠ¶æ€---document.readyState,xmlHttp.readyState...*/
 
 
-            readyState === 0 ? // ¿É¸Ä±ä´ı·¢ËÍµÄÊı¾İ
-            beforeSend ? option.data = beforeSend(option.data, readyState) || option.data : null : readyState === 1 ? // ²»¿É¸Ä±ä´ı·¢ËÍµÄÊı¾İ
+            readyState === 0 ? // å¯æ”¹å˜å¾…å‘é€çš„æ•°æ®
+            beforeSend ? option.data = beforeSend(option.data, readyState) || option.data : null : readyState === 1 ? // ä¸å¯æ”¹å˜å¾…å‘é€çš„æ•°æ®
             sending ? option.data = sending(option.data, readyState) || option.data : null : readyState === 2 ? sent ? sent(option.data, readyState) : null : readyState === 3 ? inProcess ? inProcess(option.data, readyState) : null : readyState === 4 ? function () {
-                return xmlHttp.getResponseHeader('location') /*Ö§³ÖÖØ¶¨Ïòµ½ÁíÒ»¸öÒ³ÃæµØÖ·*/ ? window.location.href = xmlHttp.getResponseHeader('location') : status === 200 ?
-                /*£¡JSON/XML¸ñÊ½µÄÊı¾İ²ÅÄÜ±»½âÎö*/
+                return xmlHttp.getResponseHeader('location') /*æ”¯æŒé‡å®šå‘åˆ°å¦ä¸€ä¸ªé¡µé¢åœ°å€*/ ? window.location.href = xmlHttp.getResponseHeader('location') : status === 200 ?
+                /*ï¼JSON/XMLæ ¼å¼çš„æ•°æ®æ‰èƒ½è¢«è§£æ*/
                 success ? success(responseText ? JSON.parse(_this.decode ? _this.decode(responseText) : responseText) : _this.decode ? _this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) : resolve(responseText ? JSON.parse(_this.decode ? _this.decode(responseText) : responseText) : _this.decode ? _this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) : error ? error(responseText || responseXML, {
                     status: status,
                     statusText: statusText
@@ -54,16 +50,16 @@ exports = module.exports = function (option) {
             async = _ref$async === undefined ? true : _ref$async,
             _ref$error = _ref.error,
             error = _ref$error === undefined ? _this.error : _ref$error,
-            sendURL = '' + (_this.baseURL /*¿ÉÌáÇ°ÔÚÔ­ĞÍ»òÊµÀıÉÏÉèÖÃÒ»¸öÏîÄ¿Ç°×º*/ || '') + (type === 'POST' ? url : url.indexOf('?') !== -1 ? url + '&timestamp=' + new Date().valueOf() : url + '?timestamp=' + new Date().valueOf() /*½â¾öIE - GETÇëÇó»º´æÎÊÌâ*/),
+            sendURL = '' + (_this.baseURL /*å¯æå‰åœ¨åŸå‹æˆ–å®ä¾‹ä¸Šè®¾ç½®ä¸€ä¸ªé¡¹ç›®å‰ç¼€*/ || '') + (type === 'POST' ? url : url.indexOf('?') !== -1 ? url + '&timestamp=' + new Date().valueOf() : url + '?timestamp=' + new Date().valueOf() /*è§£å†³IE - GETè¯·æ±‚ç¼“å­˜é—®é¢˜*/),
             sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(_this) : option);
-        //this.cancel = xmlHttp.abort;//Ô¤ÁôÖÕÖ¹ÇëÇó
+        //this.cancel = xmlHttp.abort;//é¢„ç•™ç»ˆæ­¢è¯·æ±‚
         xmlHttp.onreadystatechange = state_Change;
         xmlHttp.onerror = function (e) {
             return console.error(e);
-        }; //Òì³£¡¢´íÎó
+        }; //å¼‚å¸¸ã€é”™è¯¯
         xmlHttp.open(type, sendURL, async);
         header ? function () {
-            // ÉèÖÃÇëÇóÍ·²¿£¬Ä¬ÈÏÈ¡Ô­ĞÍ»òÊµÀıÉÏµÄheader
+            // è®¾ç½®è¯·æ±‚å¤´éƒ¨ï¼Œé»˜è®¤å–åŸå‹æˆ–å®ä¾‹ä¸Šçš„header
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
