@@ -13,27 +13,44 @@ export default function (option) {
                 const {readyState, status, statusText, responseText, responseXML} = xmlHttp,
                     {beforeSend, sending, sent, inProcess, success, error = this.error} = typeof option === 'string' ? {} : option;
                 /*预留外部模拟document四个状态---document.readyState,xmlHttp.readyState...*/
-                readyState === 0 ? // 可改变待发送的数据
-                    !!beforeSend && (option.data = beforeSend(option.data, readyState) || option.data) :
-                    readyState === 1 ? // 不可改变待发送的数据
-                        !!sending && (option.data = sending(option.data, readyState) || option.data) :
-                        readyState === 2 ?
-                            !!sent && sent(option.data, readyState) :
-                            readyState === 3 ?
-                                !!inProcess && inProcess(option.data, readyState) :
-                                readyState === 4 ? (() => {
-                                    return !!xmlHttp.getResponseHeader('location')/*支持重定向到另一个页面地址*/ ? window.location.href = xmlHttp.getResponseHeader('location') :
-                                        status === 200 ?
-                                            /*！JSON/XML格式的数据才能被解析*/
-                                            !!success ? success(!!responseText ? JSON.parse(!!this.decode ? this.decode(responseText) : responseText) : !!this.decode ? this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) : resolve(!!responseText ? JSON.parse(!!this.decode ? this.decode(responseText) : responseText) : !!this.decode ? this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) :
-                                            !!error ? error(responseText || responseXML, {
-                                                status,
-                                                statusText
-                                            }) : reject(responseText || responseXML, {
-                                                status,
-                                                statusText
-                                            })
-                                })() : eval(`throw new Error('XMLHttpRequest.readyState unknown')`);
+                switch (readyState) {
+                    case 0:
+                        !!beforeSend && (option.data = beforeSend(option.data, readyState) || option.data);
+                        break;
+                    case 1:
+                        !!sending && (option.data = sending(option.data, readyState) || option.data);
+                        break;
+                    case 2:
+                        !!sent && sent(option.data, readyState);
+                        break;
+                    case 3:
+                        !!inProcess && inProcess(option.data, readyState);
+                        break;
+                    case 4:
+                        return !!xmlHttp.getResponseHeader('location') /* 支持重定向到另一个页面地址 */ ? window.location.href = xmlHttp.getResponseHeader('location') :
+                            status === 200 ?
+                                /*! JSON/XML格式的数据才能被解析 */
+                                !!success ?
+                                    success(!!responseText ?
+                                        JSON.parse(!!this.decode ? this.decode(responseText) : responseText) :
+                                        !!this.decode ? this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) :
+                                    resolve(!!responseText ?
+                                        JSON.parse(!!this.decode ? this.decode(responseText) : responseText) :
+                                        !!this.decode ? this.decode(responseXML) : responseXML, xmlHttp.getAllResponseHeaders()) :
+                                !!error ?
+                                    error(responseText || responseXML, {
+                                        status,
+                                        statusText
+                                    }) :
+                                    reject(responseText || responseXML, {
+                                        status,
+                                        statusText
+                                    });
+                        break;
+                    default:
+                        throw new Error('XMLHttpRequest.readyState unknown');
+                        break;
+                }
             },
             {header = !!option.header ? Object.assign(option.header, this.header) : this.header, type = 'GET', url = option, async = true/*, error = this.error*/} = typeof option === 'string' ? {} : option,
             sendURL = `${this.baseURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${type === 'POST' ? url : !!~url.indexOf('?') ? url + '&timestamp=' + (new Date()).valueOf() : url + '?timestamp=' + (new Date()).valueOf()/*解决IE - GET请求缓存问题*/}`,
