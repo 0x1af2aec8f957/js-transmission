@@ -5,6 +5,8 @@
  */
 
 export default function (option) {
+    // option @String [!!~option.indexOf("http://") || !!~option.indexOf("https://")] --url
+    // option @Object [{url, data, header, async, beforeSend, sending, sent, inProcess, success, error}] --option
     return new Promise((resolve, reject) => {
         const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP'),
             state_Change = () => {//ajax 状态码发生改变
@@ -34,7 +36,7 @@ export default function (option) {
                                 })() : eval(`throw new Error('XMLHttpRequest.readyState unknown')`);
             },
             {header = option.header ? Object.assign(option.header, this.header) : this.header, type = 'GET', url = option, async = true, error = this.error} = typeof option === 'string' ? {} : option,
-            sendURL = `${this.baseURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${type === 'POST' ? url : url.indexOf('?') !== -1 ? url + '&timestamp=' + (new Date()).valueOf() : url + '?timestamp=' + (new Date()).valueOf()/*解决IE - GET请求缓存问题*/}`,
+            sendURL = `${this.baseURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${type === 'POST' ? url : !!~url.indexOf('?') ? url + '&timestamp=' + (new Date()).valueOf() : url + '?timestamp=' + (new Date()).valueOf()/*解决IE - GET请求缓存问题*/}`,
             sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(this) : option);
         //this.cancel = xmlHttp.abort;//预留终止请求
         xmlHttp.onreadystatechange = state_Change;
