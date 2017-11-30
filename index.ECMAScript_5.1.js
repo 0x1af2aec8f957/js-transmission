@@ -73,7 +73,7 @@ exports = module.exports = function (option) {
             _ref$error = _ref.error,
             error = _ref$error === undefined ? _this.error : _ref$error,
             sendURL = '' + (_this.baseURL /*可提前在原型或实例上设置一个项目前缀*/ || '') + (type === 'POST' ? url : url.indexOf('?') !== -1 ? url + '&timestamp=' + new Date().valueOf() : url + '?timestamp=' + new Date().valueOf() /*解决IE - GET请求缓存问题*/),
-            sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(_this) : option);
+            sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(_this) : option.data);
         //this.cancel = xmlHttp.abort;//预留终止请求
         xmlHttp.onreadystatechange = state_Change;
         xmlHttp.onerror = function (e) {
