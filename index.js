@@ -52,7 +52,8 @@ export default function (option) {
                         break;
                 }
             },
-            {header = !!option.header ? Object.assign(option.header, this.header) : this.header, type = 'GET', url = option, async = true/*, error = this.error*/} = typeof option === 'string' ? {} : option,
+            !!option.header && Object.assign(option.header, this.header),
+            {header=this.header, type = 'GET', url = option, async = true/*, error = this.error*/} = typeof option === 'string' ? {} : option,
             sendURL = `${this.baseURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${type === 'POST' ? url : !!~url.indexOf('?') ? url + '&timestamp=' + (new Date()).valueOf() : url + '?timestamp=' + (new Date()).valueOf()/*解决IE - GET请求缓存问题*/}`,
             sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(this) : option.data);
         //this.cancel = xmlHttp.abort;//预留终止请求
