@@ -90,4 +90,4 @@ transmission({
 
 [MIT](http://opensource.org/licenses/MIT)
 
-[transmission.js@1.0.2](https://github.com/noteScript/js-transmission.git)
+[transmission.js@1.0.3](https://github.com/noteScript/js-transmission.git)
