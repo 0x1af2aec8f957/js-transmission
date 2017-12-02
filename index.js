@@ -14,7 +14,7 @@ export default function (option) {
                 const {readyState, status, statusText, responseText, responseXML} = xmlHttp,
                     {beforeSend, sending, sent, inProcess, success, error = this.error} = typeof option === 'string' ? {} : option;
                 /*预留外部模拟document四个状态---document.readyState,xmlHttp.readyState...*/
-                switch (readyState | false) {
+                switch (~~readyState) {
                     case 0:
                         !!beforeSend && (option.data = beforeSend(option.data, readyState) || option.data);
                         break;
