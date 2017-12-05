@@ -1,6 +1,6 @@
 {
   "name": "js-transmission",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Be based on Asynchronous Javascript And XML",
   "main": "index.js",
   "scripts": {
