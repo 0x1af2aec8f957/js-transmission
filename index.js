@@ -61,8 +61,7 @@ export default function (option) {
     //xmlHttp.onerror = e => console.error(e);//预留捕获异常、错误
     xmlHttp.open(type, sendURL, async);
     header && (() => { // 设置请求头部，默认取原型或实例上的header
-      for (let [k, v] of Object.entries(header))
-        xmlHttp.setRequestHeader(k, v);
+      for (let [k, v] of Object.entries(header)) xmlHttp.setRequestHeader(k, v);
     })();
     xmlHttp.send(!!~type.indexOf('POST') ? this.encode ? this.encode(sendData) : sendData : null)
   });
