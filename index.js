@@ -58,9 +58,12 @@ export default function (option) {
       sendData = JSON.stringify(typeof option.data === 'function' ? option.data.call(this) : option.data);
     //this.cancel = xmlHttp.abort;//预留终止请求
     //xmlHttp.onerror = e => console.error(e);//预留捕获异常、错误
-    [xmlHttp.onreadystatechange] = [state_Change, xmlHttp.open(type, sendURL, async), header && (() => { // 设置请求头部，默认取原型或实例上的header
-      for (let [k, v] of Object.entries(header)) xmlHttp.setRequestHeader(k, v);
-    })(), xmlHttp.send(!!~type.indexOf('POST') ? this.encode ? this.encode(sendData) : sendData : null)];
+    [xmlHttp.onreadystatechange] = [state_Change,
+      xmlHttp.open(type, sendURL, async),
+      header && (() => { // 设置请求头部，默认取原型或实例上的header
+        for (let [k, v] of Object.entries(header)) xmlHttp.setRequestHeader(k, v);
+      })(),
+      xmlHttp.send(!!~type.indexOf('POST') ? this.encode ? this.encode(sendData) : sendData : null)];
   });
 };
 
