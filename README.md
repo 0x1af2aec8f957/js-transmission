@@ -3,7 +3,7 @@
 ##### matters needing attention
 
 Be based on Asynchronous Javascript And XML！
-In the future version,Access to Fetch API!
+In the future version, Access to Fetch API!
 
 ## install transmission.js
 
