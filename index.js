@@ -7,8 +7,7 @@
 export default function (option) {
   // option @String [!!option.length && (!!~option.indexOf("http://") || !!~option.indexOf("https://"))] --url
   // option @Object [{url, data, header, async, beforeSend, sending, sent, inProcess, success, error}] --option
-  option.header && Object.assign(option.header, this.header);
-  return new Promise((resolve, reject) => {
+  return option.header && Object.assign(option.header, this.header), new Promise((resolve, reject) => {
     const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP'),
       state_Change = () => {//ajax 状态码发生改变
         const {readyState, status, statusText, responseText, responseXML} = xmlHttp,
