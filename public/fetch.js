@@ -21,9 +21,9 @@ const [
 ];
 
 export default async option => {
-    const {header = HEADER, type = 'GET', url = option, /*error = ERROR*/} = typeof option === 'string' ? {} : option;
-    //sendURL = `${BASEURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${!!~type.indexOf('POST') ? url : !!~url.indexOf('?') ? url + '&timestamp=' + DATE : url + '?timestamp=' + DATE/*解决IE - GET请求缓存问题*/}`;
-    const [
+    const {header = HEADER, type = 'GET', url = option, /*error = ERROR*/} = typeof option === 'string' ? {} : option,
+        //sendURL = `${BASEURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${!!~type.indexOf('POST') ? url : !!~url.indexOf('?') ? url + '&timestamp=' + DATE : url + '?timestamp=' + DATE/*解决IE - GET请求缓存问题*/}`;
+        [
             Headers,
             sendData
         ] = [
@@ -63,5 +63,4 @@ export default async option => {
             })
     }
     else return response.error ? response.error() : ERROR ? ERROR('Error is unknown') : Promise.reject('Error is unknown')
-
 };
