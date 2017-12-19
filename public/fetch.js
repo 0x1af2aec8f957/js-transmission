@@ -50,7 +50,7 @@ export default async option => {
         } = response;
     if (ok && status === 200) switch (() => headers.has('location') ? window.location.href = headers.get('location') : headers.get("content-type")) {
         case 'text/plain':
-            return response.text();
+            return DECODE ? DECODE(response.text()) : response.text();
         case 'application/json':
             return DECODE ? DECODE(response.text()) : response.json();
         default:
