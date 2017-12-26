@@ -1,5 +1,5 @@
 /*!
- * transmission.js v1.0.4
+ * transmission.js v1.0.5
  * 2017 603803799@qq.com
  * Released under the MIT License.
  */
