@@ -60,7 +60,7 @@ export default function (option) {
     [xmlHttp.onreadystatechange] = [state_Change,
       xmlHttp.open(type, !!~type.indexOf('POST') ? sendURL :function(){ // 拼接GET的data数据
         const send_url=[]; // 处理待发送的URL
-        for (let [k, v] of Object.entries(sendData)) send_url.push(`&${k}=${v}`)
+        if (sendData) for (let [k, v] of Object.entries(JSON.parse(sendData))) send_url.push(`&${k}=${v}`)
         return sendURL + send_url.join('')
       }.call(this), async),
       header && (() => { // 设置请求头部，默认取原型或实例上的header
