@@ -58,7 +58,11 @@ export default function (option) {
     //this.cancel = xmlHttp.abort;//预留终止请求
     //xmlHttp.onerror = e => console.error(e);//预留捕获异常、错误
     [xmlHttp.onreadystatechange] = [state_Change,
-      xmlHttp.open(type, sendURL, async),
+      xmlHttp.open(type, !!~type.indexOf('POST') ?sendURL:function(){ // 拼接GET的data数据
+        const send_url=[]; // 处理待发送的URL
+        for (let [k, v] of Object.entries(sendData)) send_url.push(`&${k}=${v}`)
+        return sendURL + send_url.join('')
+      }.call(this), async),
       header && (() => { // 设置请求头部，默认取原型或实例上的header
         for (let [k, v] of Object.entries(header)) xmlHttp.setRequestHeader(k, v);
       })(),
