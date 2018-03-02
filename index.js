@@ -13,8 +13,7 @@ export default function (option) {
       const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP'),
         state_Change = () => {//ajax 状态码发生改变
           const {readyState, status, statusText, responseText, responseXML} = xmlHttp,
-            {beforeSend, sending, sent, inProcess, success, error = this.error} = typeof option ===
-            'string' ? {} : option
+            {beforeSend, sending, sent, inProcess, success, error = this.error} = typeof option === 'string' ? {} : option
           /*预留外部模拟document四个状态---document.readyState,xmlHttp.readyState...*/
           switch (readyState) {
             case 0:
