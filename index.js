@@ -66,9 +66,9 @@ export default function (option) {
       //xmlHttp.onerror = e => console.error(e);//预留捕获异常、错误
       [xmlHttp.onreadystatechange] = [state_Change,
         xmlHttp.open(type, !!~type.indexOf('POST') ? sendURL : function () { // 拼接GET的data数据
-          const send_url = [] // 处理待发送的URL
+          const send_url = Array() // 处理待发送的URL
           if (sendData) for (let [k, v] of Object.entries(sendData)) send_url.push(`&${k}=${v}`)
-          return sendURL + send_url.join('')
+          return sendURL + send_url.join(String())
         }.call(this), async),
         header && (() => { // 设置请求头部，默认取原型或实例上的header
           for (let [k, v] of Object.entries(header)) xmlHttp.setRequestHeader(k, v)
