@@ -11,26 +11,42 @@ export default function (option) {
     option.data = typeof option.data === 'function' ? option.data.call(this) : option.data,
     new Promise((resolve, reject) => {
       const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP'),
-        state_Change = () => {//ajax 状态码发生改变
-          const {readyState, status, statusText, responseText, responseXML} = xmlHttp,
-            {beforeSend, sending, sent, inProcess, success, error = this.error} = typeof option === 'string' ? {} : option
+        state_Change = () => { // ajax 状态码发生改变
+          const {readyState, 
+                 status,
+                 statusText,
+                 responseText,
+                 responseXML,
+                 UNSENT,
+                 OPENED,
+                 HEADERS_RECEIVED, 
+                 LOADING,
+                 DONE
+                } = xmlHttp,
+            {beforeSend,
+             sending,
+             sent,
+             inProcess,
+             success,
+             error = this.error
+            } = typeof option === 'string' ? {} : option
           /*预留外部模拟document四个状态---document.readyState,xmlHttp.readyState...*/
           switch (readyState) {
-            case 0:
+            case UNSENT:
               beforeSend && (option.data = beforeSend(option.data, readyState) || option.data)
               break
-            case 1:
+            case OPENED:
               sending && (option.data = sending(option.data, readyState) || option.data)
               break
-            case 2:
+            case HEADERS_RECEIVED:
               sent && sent(option.data, readyState)
               break
-            case 3:
+            case LOADING:
               inProcess && inProcess(option.data, readyState)
               break
-            case 4:
+            case DONE:
               return xmlHttp.getResponseHeader('location') /* 支持重定向到另一个页面地址 */
-                ? window.location.href = xmlHttp.getResponseHeader('location') : status === 200 ? /*! JSON/XML格式的数据才能被解析 */
+                ? window.location.href = xmlHttp.getResponseHeader('location') : !(status - 200) ? /*! JSON/XML格式的数据才能被解析 */
                   success
                     ? success(responseText
                     ? JSON.parse(
