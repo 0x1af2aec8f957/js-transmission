@@ -1,12 +1,13 @@
 /*!
- * transmission.js v1.1.1
+ * transmission.js v1.1.2
  * 2017 603803799@qq.com
  * Released under the MIT License.
  */
-const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP') // 初始化xmlHttp对象
+
 export default function (option) {
   // option @String [!!option.length && (!!~option.indexOf("http://") || !!~option.indexOf("https://"))] --url
   // option @Object [{url, data, header, async, beforeSend, sending, sent, inProcess, success, error}] --option
+  const xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP') // 初始化xmlHttp对象
   return option.header && Object.assign(option.header, this.header),
     option.data = typeof option.data === 'function' ? option.data.call(this) : option.data,
     new Promise((resolve, reject) => {
