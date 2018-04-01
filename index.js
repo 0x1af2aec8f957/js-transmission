@@ -1,5 +1,5 @@
 /*!
- * transmission.js v1.1.3
+ * transmission.js v1.1.4
  * 2017 603803799@qq.com
  * Released under the MIT License.
  */
@@ -73,7 +73,7 @@ export default function(option) {
               if (status >= 200 && status < 400) { // 请求状态成功
                 if (locationHeader) return location ? location.call(this, locationHeader) : window.location.href = locationHeader // 应用内重定向
                 let data = response ? eval(`(${decode ? decode.call(this, response) : response})`) : null
-                data = data && beforeSuccess ? beforeSuccess.call(this, data, sendObject, ResponseHeaders) || data : data
+                data = data && beforeSuccess ? beforeSuccess.call(this, data, sendObject, ResponseHeaders) : data
                 return data ? /*! JSON/XML格式的数据才能被解析 */
                   success ? success.call(this, data, ResponseHeaders) : // .成功[需要解码]
                   resolve(data, ResponseHeaders) : // ..成功[需要解码]
