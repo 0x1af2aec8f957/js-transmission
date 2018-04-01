@@ -5,7 +5,7 @@ import transmission from 'js-transmission'
 
 transmission({
   url: "https://baidu.com",
-  type: "POST",
+  type: "GET",
   async: false, // 同步请求
   header: {
     'User-Agent': 'js-transmission'
@@ -30,13 +30,18 @@ transmission({
   inProcess() {
     //so do
   },
+  beforeSuccess: (data, sendObject, ResponseHeaders) => {
+    console.log(data)
+    console.log(sendObject)
+    console.log(ResponseHeaders)
+  },
   success(response, headers) {
     // typeof response === 'object' //true
-    console.dir(response),
+    console.dir(response)
       console.dir(headers)
   },
   error(error, statusData) {
-    console.warn(error);
+    console.warn(error)
     console.dir(statusData)
   }
 })
@@ -63,7 +68,7 @@ transmission({
 })();
 
 const api = transmission
-  .bind({//config this
+  .bind({ //config this
     baseURL: 'https://baidu.com',
     header: {
       message: "hello world!"
@@ -71,11 +76,11 @@ const api = transmission
     error(error) { // 这里捕获内部错误，是一个很好的处理方式...
       console.error(error)
     },
-    encode(r) {//转码
+    encode(r) { //转码
       //so do...
       return r
     },
-    decode(r) {//解码
+    decode(r) { //解码
       //so do...
       return r
     },
@@ -84,7 +89,7 @@ const api = transmission
 /*-------ES6-------*/
 // other parameter
 
-const api = transmission('/news');// option.url === 'https://baidu.com/news' //true
+const api = transmission('/news'); // option.url === 'https://baidu.com/news' //true
 
 api.then(r => {
   console.log(r)

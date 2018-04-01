@@ -1,4 +1,4 @@
-> transmission.js@1.1.2
+> transmission.js@1.1.3
 
 ##### matters needing attention
 
@@ -24,7 +24,7 @@ import transmission from 'js-transmission';
 
 transmission({
   url: "https://baidu.com",
-  type: "POST",
+  type: "GET",
   async: false,
   header: {
     'User-Agent': 'js-transmission'
@@ -48,6 +48,12 @@ transmission({
   },
   inProcess() {
     //so do
+  },
+  beforeSuccess: (data, sendObject, ResponseHeaders) => {
+    // data, sendObject, ResponseHeaders
+    console.log(data)
+    console.log(sendObject)
+    console.log(ResponseHeaders)
   },
   success(response, headers) {
     // typeof response === 'object' //true
@@ -91,4 +97,4 @@ transmission({
 
 [MIT](http://opensource.org/licenses/MIT)
 
-[transmission.js@1.1.2](https://github.com/noteScript/js-transmission.git)
+[transmission.js@1.1.3](https://github.com/noteScript/js-transmission.git)
