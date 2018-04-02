@@ -12,7 +12,7 @@ export default function(option) {
     option.data = typeof option.data === 'function' ? option.data.call(this) : option.data,
     new Promise((resolve, reject) => {
       const { // option.data不可分解，依赖每个阶段最终返回的数据[可变化]
-          header = this.header,
+        header = this.header,
           encode = this.encode, // 支持独立编码
           decode = this.decode, // 支持独立解码
           type = 'GET',
@@ -72,13 +72,13 @@ export default function(option) {
               }]
               if (status >= 200 && status < 400) { // 请求状态成功
                 if (locationHeader) return location ? location.call(this, locationHeader) : window.location.href = locationHeader // 应用内重定向
-                let data = response ? eval(`(${decode ? decode.call(this, response) : response})`) : null
-                data = data && beforeSuccess ? beforeSuccess.call(this, data, sendObject, ResponseHeaders) : data
+                const dataIng = response ? eval(`(${decode ? decode.call(this, response) : response})`) : null,
+                  data = dataIng && beforeSuccess ? beforeSuccess.call(this, dataIng, sendObject, ResponseHeaders) : dataIng
                 return data ? /*! JSON/XML格式的数据才能被解析 */
                   success ? success.call(this, data, ResponseHeaders) : // .成功[需要解码]
                   resolve(data, ResponseHeaders) : // ..成功[需要解码]
-                  error ? error.call(this, response, sendObject, statusObject) : // .失败[不需要解码]
-                  reject(response, sendObject, statusObject) // ..失败[不需要解码]
+                  error ? error.call(this, dataIng, sendObject, statusObject) : // .失败[需要解码]
+                  reject(dataIng, sendObject, statusObject) // ..失败[需要解码]
               } else return error ? error.call(this, response, sendObject, statusObject) : reject(response, sendObject, statusObject) // 请求状态失败
               break
             default:
