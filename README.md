@@ -1,4 +1,4 @@
-> transmission.js@1.1.4
+> transmission.js@1.1.5
 
 ##### matters needing attention
 
