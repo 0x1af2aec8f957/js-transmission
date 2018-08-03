@@ -9,7 +9,7 @@ In the future version, Access to Fetch API!
 
 ```bash
 
-npm install js-transmission
+npm install js-transmission --registry=https://registry.npm.taobao.org
 
 ```
 
@@ -17,7 +17,7 @@ npm install js-transmission
 
 > ES6 import
 
-``` bash
+``` javascript
 
 // For the sake of standardization, only support ES6 module!
 import transmission from 'js-transmission';
