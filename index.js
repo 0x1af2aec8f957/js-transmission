@@ -16,6 +16,7 @@ export default function(option) {
           encode = this.encode, // 支持独立编码
           decode = this.decode, // 支持独立解码
           type = 'GET',
+          dataType = 'JSON',
           url = option,
           async = true, /* error = this.error */
           beforeSend = this.beforeSend,
@@ -28,7 +29,9 @@ export default function(option) {
           error = this.error
       } = typeof option === 'string' ? {} : option,
         sendURL = `${this.baseURL/*可提前在原型或实例上设置一个项目前缀*/ || ''}${!!~type.indexOf('POST') ? url : !!~url.indexOf('?') ? url + '&timestamp=' + (new Date()).valueOf() : url + '?timestamp=' + (new Date()).valueOf()/*解决IE - GET请求缓存问题*/}`,
-        sendData = !!~type.indexOf('POST') ? JSON.stringify(option.data) : option.data,
+        sendData = dataType === 'JSON' ? JSON.stringify(option.data) : Object.entries(option.data).reduce((prev,[name,value])=>{
+          return prev.append(name,value) || prev
+        },new FormData()),
         state_Change = () => { // ajax 状态码发生改变
           const {
             readyState,
@@ -91,8 +94,8 @@ export default function(option) {
       [xmlHttp.onreadystatechange] = [state_Change,
         xmlHttp.open(type, !!~type.indexOf('POST') ? sendURL : function() { // 拼接GET的data数据
           const send_url = Array() // 处理待发送的URL
-          if (sendData)
-            for (let [k, v] of Object.entries(sendData)) send_url.push(`&${k}=${v}`)
+          if (option.data)
+            for (let [k, v] of Object.entries(option.data)) send_url.push(`&${k}=${v}`)
           return sendURL + send_url.join(String())
         }.call(this), async),
         header && (() => { // 设置请求头部，默认取原型或实例上的header
