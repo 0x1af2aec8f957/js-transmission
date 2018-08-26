@@ -1,4 +1,4 @@
-> transmission.js@1.1.5
+> transmission.js@1.1.6
 
 ##### matters needing attention
 
@@ -97,4 +97,4 @@ transmission({
 
 [MIT](http://opensource.org/licenses/MIT)
 
-[transmission.js@1.1.5](https://github.com/noteScript/js-transmission.git)
+[transmission.js@1.1.6](https://github.com/noteScript/js-transmission.git)
